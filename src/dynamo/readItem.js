@@ -2,9 +2,10 @@
 
 console.log('loading readItem');
 
-
 module.exports =  
-   function read(tableName, title, callback){
+   function read(tableName, title){
+	
+	return new Promise(function(resolve, reject) {
 	console.log('read item call');
 	var AWS = require("aws-sdk");
 
@@ -28,7 +29,15 @@ module.exports =
 	console.log('table name: ', table, ' title: ', title);
 	console.log(params);
 	console.log('Reading a new item...');
-	docClient.get(params, callback);
-	
-	console.log('returning value');
+	docClient.get(params, function(err, data) {
+	    if (err) {
+	    	console.log('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
+	        console.error('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
+	        return reject(err);
+	    } else {
+	        console.log('getItem success item:', JSON.stringify(data, null, 2));
+	        return resolve(data["Item"]);
+	    }
+	});
+	});
 }

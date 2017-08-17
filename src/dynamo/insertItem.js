@@ -5,6 +5,7 @@ console.log('loading insertItem');
 
 module.exports =  
    function insert(tableName, title, year){
+	return new Promise(function(resolve, reject) {
 	console.log('insert item call');
 	var AWS = require('aws-sdk');
 
@@ -32,11 +33,12 @@ module.exports =
 	    if (err) {
 	    	console.log('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
 	        console.error('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
-	        return err;
+	        return reject(err);
 	    } else {
 	        console.log('Added item:', JSON.stringify(data, null, 2));
-	        return JSON.stringify(data, null, 2);
+	        return resolve(params.Item);
 	    }
+	});
 	});
 }
 

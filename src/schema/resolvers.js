@@ -36,21 +36,18 @@ console.log('loading resolversDynamo.js');
 const insert = require('../dynamo/insertItem');
 const read = require('../dynamo/readItem');
 
+function sleep(ms) {
+	  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports = {
   Query: {
-    movie:  (obj, args, context) => {
+    movie: (obj, args, context) => {
     	console.log('fetch a movie');
     	console.log(args.title);
-    	read('movie', args.title, function(err, data) {
-    	    if (err) {
-    	    	console.log('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
-    	        console.error('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
-    	        return err;
-    	    } else {
-    	        console.log('getItem success item:', JSON.stringify(data, null, 2));
-    	        return data;
-    	    }
-    	});
+    	return  read('movie', args.title);
+    	//console.log('movieData is ', movieData);
+    	//return movieData;
     },
   },
 

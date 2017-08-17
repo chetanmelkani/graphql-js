@@ -40,7 +40,7 @@ const app = express();
   };
   app.use('/graphql', bodyParser.json(), graphqlExpress(buildOptions));
 
-  const PORT = 3002;
+  const PORT = 3003;
   app.use('/graphiql', graphiqlExpress({
     endpointURL: '/graphql',
   }));
