@@ -9,10 +9,10 @@ const bodyParser = require('body-parser');
 
 // This package will handle GraphQL server requests and responses
 // for you, based on your schema.
-const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
+/*const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
 const {createServer} = require('http');
-const {SubscriptionServer} = require('subscriptions-transport-ws');
-//const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
+const {SubscriptionServer} = require('subscriptions-transport-ws');*/
+const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
 
 const {execute, subscribe} = require('graphql');
 
@@ -21,11 +21,9 @@ const expressGraphQL = require('express-graphql');
 const schema = require('./schema');
 const formatError = require('./formatError');
 
-//const start =  () => {
-  //const mongo =  connectMongo();
 const app = express();
 
-  const buildOptions =  (req, res) => {
+/*  const buildOptions =  (req, res) => {
     //const user =  authenticate(req, mongo.Users);
     return {
       // This context object is passed to all resolvers.
@@ -45,7 +43,12 @@ const app = express();
     endpointURL: '/graphql',
   }));
   
-/*  app.use(
+  const server = createServer(app);
+  server.listen(PORT);  
+  */
+
+//use this with lambda  
+app.use(
 			'/',
 			bodyParser.json(),
 			expressGraphQL( () => {
@@ -58,10 +61,3 @@ const app = express();
 		);
   
 module.exports = app;
-*/
-
-  const server = createServer(app);
-  server.listen(PORT);
-//};
-
-//start();
